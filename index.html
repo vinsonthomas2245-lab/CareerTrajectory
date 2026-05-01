@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Journey | Professional Summary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .slide-enter { transition: all 0.5s ease-out; }
+        .slide-exit { transition: all 0.5s ease-in; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans overflow-hidden">
+
+    <div x-data="{ 
+        activeSlide: 0, 
+        slides: [
+            { 
+                title: 'The Vision', 
+                subtitle: 'Solution Engineering', 
+                content: 'Empowering strategy and long-term vision through short term pivots. My journey is defined by the ability to walk into hospitals, earn clinician trust and apply commercial and technical discipline to drive outcomes.',
+                icon: 'fa-lightbulb',
+                color: 'from-blue-600 to-indigo-700'
+            },
+            { 
+                title: 'Technical Roots', 
+                subtitle: 'Biomedical Engineering Foundation', 
+                content: 'My career kicked off with hands-on experience servicing Hill Rom transport solutions & NMI critical care ventilators. This foundation built the technical bridge between engineering and patient care.',
+                icon: 'fa-gears',
+                color: 'from-indigo-600 to-purple-700'
+            },
+            { 
+                title: 'Clinical Pivot', 
+                subtitle: 'Clinical Edge', 
+                content: 'I transitioned from technical engineering to the front lines where I managed mechanical ventilators in ICU/ER, talked RSBI, performed spontaneous breathing trials (SBT) and responded to Code Blues alongside Pulmonologists.',
+                icon: 'fa-stethoscope',
+                color: 'from-purple-600 to-pink-700'
+            },
+            { 
+                title: 'Clinical Expertise', 
+                subtitle: 'Respiratory Solutions Manager | GE Healthcare', 
+                content: 'I managed the lifecycle of Carescape R860 critical care ventilators where I led presales, installation, and training for $2.2M in projects, translating clinical needs into operational success.',
+                icon: 'fa-heart-pulse',
+                color: 'from-pink-600 to-red-700'
+            },
+            { 
+                title: 'Digital Transformation', 
+                subtitle: 'Healthcare IT | Intelerad Medical Systems', 
+                content: 'I managed $2.5M ARR PACS implementations across ANZ where I led multi-year cloud migrations, delivered 25 full upgrades and increased platform adoption by 45% with 99% retention.',
+                icon: 'fa-cloud-arrow-up',
+                color: 'from-blue-500 to-cyan-600'
+            },
+            { 
+                title: 'The SaaS Pivot', 
+                subtitle: 'Unified Observability | LogicMonitor', 
+                content: 'My technology agility facilitated my cloud & AI transformation. I developed scalable engagement models for 30+ accounts, utilized Salesforce/Gainsight for health metrics and drove AI-led growth.',
+                icon: 'fa-chart-network',
+                color: 'from-cyan-500 to-teal-600'
+            },
+            { 
+                title: 'Bringing It All Together', 
+                subtitle: 'Strategic Leadership and Governance', 
+                content: 'Led Victorian government contract integrating clinical, commercial and SaaS disciplines. I managed TGA ARTG submissions, HealthShare Victoria negotiations and ISO 13485 audits.',
+                icon: 'fa-briefcase',
+                color: 'from-teal-500 to-emerald-600'
+            },
+            { 
+                title: 'The Philosophy', 
+                subtitle: 'The Guiding Principle', 
+                content: '“Change before you have to.” — Jack Welch. Every pivot has been a proactive step to stay at the forefront of healthcare innovation.',
+                icon: 'fa-quote-left',
+                color: 'from-slate-700 to-slate-900'
+            }
+        ],
+        next() { this.activeSlide = (this.activeSlide + 1) % this.slides.length },
+        prev() { this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length }
+    }" class="relative h-screen w-full flex items-center justify-center p-4 md:p-8">
+
+        <!-- Background Gradient -->
+        <template x-for="(slide, index) in slides" :key="index">
+            <div 
+                x-show="activeSlide === index"
+                x-transition:enter="transition ease-out duration-1000"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                class="absolute inset-0 bg-gradient-to-br z-0"
+                :class="slide.color"
+            ></div>
+        </template>
+
+        <!-- Slide Content -->
+        <div class="relative z-10 w-full max-w-4xl bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+            <div class="p-8 md:p-16 text-center">
+                
+                <template x-for="(slide, index) in slides" :key="index">
+                    <div x-show="activeSlide === index" x-transition:enter="slide-enter" x-transition:enter-start="transform translate-y-8 opacity-0" x-transition:enter-end="transform translate-y-0 opacity-100">
+                        <div class="mb-6 inline-block p-4 bg-white/20 rounded-full">
+                            <i :class="'fa-solid ' + slide.icon + ' text-4xl md:text-6xl text-white'"></i>
+                        </div>
+                        <h2 class="text-sm md:text-lg font-bold tracking-widest uppercase text-blue-200 mb-2" x-text="slide.subtitle"></h2>
+                        <h1 class="text-4xl md:text-6xl font-black mb-8 leading-tight" x-text="slide.title"></h1>
+                        <p class="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto" x-text="slide.content"></p>
+                    </div>
+                </template>
+
+                <!-- Navigation Buttons -->
+                <div class="mt-12 flex justify-center gap-4">
+                    <button @click="prev()" class="p-4 rounded-full bg-black/20 hover:bg-black/40 transition-colors border border-white/10">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button @click="next()" class="px-8 py-4 rounded-full bg-white text-slate-900 font-bold hover:bg-blue-100 transition-colors shadow-lg">
+                        Next Chapter
+                    </button>
+                    <button @click="next()" class="p-4 rounded-full bg-black/20 hover:bg-black/40 transition-colors border border-white/10">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Progress Dots -->
+                <div class="mt-8 flex justify-center gap-2">
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div 
+                            @click="activeSlide = index"
+                            class="h-2 rounded-full cursor-pointer transition-all duration-300"
+                            :class="activeSlide === index ? 'w-8 bg-white' : 'w-2 bg-white/30'"
+                        ></div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Footer Label -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs font-medium tracking-tighter uppercase">
+            Career Journey Summary • 2010 - 2026
+        </div>
+    </div>
+
+</body>
+</html>
